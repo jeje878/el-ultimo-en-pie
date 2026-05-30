@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>El último en πe</title>
+
+  <link rel="stylesheet" href="style.css">
+
+  <!-- Leaflet (mapa gratis) -->
+  <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+</head>
+
+<body>
+<img src="https://i.imgur.com/fZvaWEw.png">
+  <h1>El último en π(e)</h1>
+
+  <!-- Código de Firebase-->
+<div id="players"></div>
+<p id="status"></p>
+
+<script type="module">
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
+  import { getFirestore } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
+
+  // 🔥 Pega aquí tu config de Firebase
+  const firebaseConfig = {
+    apiKey: "AIzaSyBPpKax_7zzPteOtnnutKX6anU6xqgfoMw",
+  authDomain: "el-ultimo-en-pie-matematikos.firebaseapp.com",
+  projectId: "el-ultimo-en-pie-matematikos",
+  storageBucket: "el-ultimo-en-pie-matematikos.firebasestorage.app",
+  messagingSenderId: "984317427914",
+  appId: "1:984317427914:web:c9fcf803d20186494b3433"
+  };
+  // Initialize Firebase
+  const app = initializeApp(firebaseConfig);
+  const db = getFirestore(app);
+  // lo hacemos global para usarlo en app.js
+  window.db = db;
+</script>
+
+<div id="screenSelect"></div>
+
+<div id="screenGame" style="display:none;">
+  <h2 id="playerName"></h2>
+  <h1 id="score">0</h1>
+
+  <button onclick="goToMap()">Ir al mapa</button>
+</div>
+
+<div id="screenMap" style="display:none;">
+  <div id="map"></div>
+  <button onclick="sendGuess()">Enviar respuesta</button>
+</div>
+  <p id="status"></p>
+
+
+  <div id="map"></div>
+
+  <!-- scripts -->
+  <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+  <script type="module" src="app.js"></script>
+
+</body>
+</html>

@@ -1,0 +1,29 @@
+body {
+  font-family: Arial, sans-serif;
+  text-align: center;
+  margin: 0;
+}
+
+h1 {
+  margin: 10px;
+}
+
+.panel {
+  margin: 10px;
+}
+
+#map {
+  height: 70vh;
+  width: 100%;
+}
+
+input {
+  padding: 8px;
+  font-size: 16px;
+}
+
+button {
+  padding: 8px 12px;
+  font-size: 16px;
+  cursor: pointer;
+}
