@@ -35,7 +35,11 @@
       <ol id="tvRankingLista">
         </ol>
     </div>
+    <button onclick=""
 
+</div>
+
+<!-- Conexión a Firebase -->
   </div>
 
   <script type="module">
@@ -54,6 +58,23 @@
     const app = initializeApp(firebaseConfig);
     const db = getFirestore(app);
     window.db = db;
+
+// Escuchar el ranking en tiempo real para la pantalla de la TV
+const q = query(collection(db, "players"), orderBy("score", "desc"));
+onSnapshot(q, (snapshot) => {
+  const listaContenedor = document.getElementById("tvRankingLista");
+  listaContenedor.innerHTML = "";
+  
+  snapshot.forEach((docSnap) => {
+    const player = docSnap.data();
+    const li = document.createElement("li");
+    li.style.fontSize = "24px";
+    li.style.margin = "10px 0";
+    li.innerHTML = `<strong>${player.name}</strong> — <span style="color: #00e676;">${player.score} pts</span>`;
+    listaContenedor.appendChild(li);
+  });
+});
+
   </script>
 
   <script type="module" src="tv.js"></script>

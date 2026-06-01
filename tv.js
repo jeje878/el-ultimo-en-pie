@@ -24,3 +24,6 @@ onSnapshot(q, (snapshot) => {
     listaContenedor.appendChild(li);
   });
 });
+
+
+

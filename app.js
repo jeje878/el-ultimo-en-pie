@@ -5,31 +5,8 @@ import {
   query,
   orderBy,
   onSnapshot 
+  doc
 } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
-
-
-// =====================
-// MAPA
-// =====================
-let map = L.map('map').setView([20, 0], 2);
-
-L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-  maxZoom: 18,
-}).addTo(map);
-
-let selectedPoint = null;
-
-map.on('click', function(e) {
-  selectedPoint = e.latlng;
-
-  map.eachLayer(layer => {
-    if (layer instanceof L.Marker) {
-      map.removeLayer(layer);
-    }
-  });
-
-  L.marker(selectedPoint).addTo(map);
-});
 
 // =====================
 // PANTALLAS   oculta todas las pantallas menos la que pongas en screen
@@ -78,8 +55,9 @@ function selectPlayer(id, name) {
   localStorage.setItem("playerName", name); 
 
   document.getElementById("playerName").innerText = name;
-
+  document.querySelector(".solo-ordenador").style.display = "none";
   showScreen("screenGame");
+  
   listenToRankingAndScore(); 
 }
 
@@ -149,6 +127,29 @@ function listenToRankingAndScore() {
 }
 
 // =====================
+// MAPA
+// =====================
+let map = L.map('map').setView([20, 0], 2);
+
+L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+  maxZoom: 18,
+}).addTo(map);
+
+let selectedPoint = null;
+
+map.on('click', function(e) {
+  selectedPoint = e.latlng;
+
+  map.eachLayer(layer => {
+    if (layer instanceof L.Marker) {
+      map.removeLayer(layer);
+    }
+  });
+
+  L.marker(selectedPoint).addTo(map);
+});
+
+// =====================
 // IR AL MAPA
 // =====================
 function goToMap() {
@@ -190,8 +191,21 @@ async function sendGuess() {
 window.onload = () => {
   loadPlayers();
   showScreen("screenSelect");
+
+  // Escuchar si la TV ordena abrir el mapa
+const estadoRef = doc(window.db, "estadoJuego", "actual");
+onSnapshot(estadoRef, (snap) => {
+  if (snap.exists() && snap.data().fase === "mapa") {
+    const playerId = localStorage.getItem("playerId");
+    if (playerId) {
+      showScreen("screenMap");
+      setTimeout(() => { map.invalidateSize(); }, 150); // Evita bug de Leaflet en gris
+    }
+  }
+});
 };
 
 window.selectPlayer = selectPlayer;
 window.goToMap = goToMap;
 window.sendGuess = sendGuess;
+
