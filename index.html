@@ -58,14 +58,27 @@
     </table>
   </div>
 
+<!-- Mapa -->
   <div id="screenMap" style="display:none;">
     <div id="map" style="height: 400px; width: 100%;"></div>
-    <button class="latex-button" onclick="sendGuess()">Enviar respuesta</button>
+    <button onclick="sendGuess()">Enviar respuesta</button>
   </div>
 
   <p id="status" style="font-style: italic; text-align: center; margin-top: 20px;"></p>
 
   <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
   <script type="module" src="app.js"></script>
+
+<!-- Botón para acceder a la página de la TV, exclusivo para ordenador-->
+  <a href="tv.html">
+    <button type="button" class="solo-ordenador">Ir a la pantalla de la TV</button>
+  </a>
+<button class="btn-movil" onclick="goToMap()">🗺️ Ver Mapa</button>
+
+
 </body>
+
+
 </html>
+
+

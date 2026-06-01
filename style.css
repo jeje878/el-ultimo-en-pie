@@ -27,3 +27,22 @@ button {
   font-size: 16px;
   cursor: pointer;
 }
+
+
+
+
+
+
+/* Botón para acceder a tv.html.
+Ocultamos el botón, y lo mostramos solo en pantallas de ordenador 
+Por defecto, ocultamos el botón */
+.solo-ordenador {
+  display: none !important;
+}
+/* 768px: se mostrará en tablets horizontales, portátiles y PCs */
+@media (min-width: 768px) {
+  .solo-ordenador {
+    display: inline-block !important;
+  }
+}
+
